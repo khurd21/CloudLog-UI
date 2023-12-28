@@ -1,0 +1,7 @@
+{
+    "name": "Debug macOS",
+    "cwd": "${workspaceFolder}",
+    "type": "reactnative",
+    "request": "launch",
+    "platform": "macos"
+  }
