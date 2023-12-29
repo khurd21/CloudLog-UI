@@ -1,0 +1,15 @@
+{
+    "jumps": [
+        {
+            "jumpNumber": 0,
+            "date": "2023-12-27T06:11:15.224Z",
+            "jumpType": 0,
+            "aircraft": "string",
+            "altitude": 0,
+            "parachute": "string",
+            "parachuteSize": 0,
+            "dropzone": "string",
+            "description": "string"
+        }
+    ]
+}
