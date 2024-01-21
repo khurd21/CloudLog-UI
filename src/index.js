@@ -11,6 +11,10 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // StrictMode does:
+  // - Your components will re-render an extra time to find bugs caused by impure rendering.
+  // - Your components will re-run Effects an extra time to find bugs caused by missing Effect cleanup.
+  // - Your components will be checked for usage of deprecated APIs.
   <React.StrictMode>
     <ResponsiveAppBar />
     <App />
