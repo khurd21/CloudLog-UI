@@ -41,7 +41,7 @@ function MyAccordianSummary({ rowInfo, additionStyle }) {
       style={{
         display: "grid",
         width: "100%",
-        gridTemplateColumns: `repeat(${rowInfo.length}, 1fr)`,
+        gridTemplateColumns: `2rem repeat(${rowInfo.length - 1}, 1fr)`,
       }}
     >
       {rowInfo.map((field, index) => (
@@ -53,39 +53,71 @@ function MyAccordianSummary({ rowInfo, additionStyle }) {
   );
 }
 
+function MyAccordianDetailFields(props) {
+  const rowStyle = {
+    display: "flex",
+    flexDirection: "row",
+    flex: 1,
+    // border: "1px solid blue",
+  };
+
+  return (
+    <div style={rowStyle}>
+      <div style={{ flex: 1 }}>
+        <Typography variant="h6">{props.leftHeader}</Typography>
+        <Typography paragraph={true}>{props.leftDescription}</Typography>
+      </div>
+      <div style={{ flex: 1 }}>
+        <Typography variant="h6">{props.rightHeader}</Typography>
+        <Typography paragraph={true}>{props.rightDescription}</Typography>
+      </div>
+    </div>
+  );
+}
+
 function MyAccordianDetails({ props }) {
+  const rowStyle = {
+    display: "flex",
+    flexDirection: "row",
+    flex: 1,
+    border: "1px solid blue",
+  };
   return (
     <div>
-      <div>
-        <Typography variant="h6">Description</Typography>
-        <Typography paragraph={true}>{props.description}</Typography>
-      </div>
-      <div>
-        <Typography variant="h6">Signed By</Typography>
-        <Typography paragraph={true}>{props.signedBy}</Typography>
-      </div>
-      <div>
-        <Typography variant="h6">Altitude</Typography>
-        <Typography paragraph={true}>{props.altitude}</Typography>
-      </div>
-      <div>
-        <Typography variant="h6">Pull Altitude</Typography>
-        <Typography paragraph={true}>{props.pullAltitude}</Typography>
-      </div>
-      <div>
-        <Typography variant="h6">Wind Speed</Typography>
-        <Typography paragraph={true}>{props.windSpeed}</Typography>
-      </div>
-      <div>
-        <Typography variant="h6">Parachute</Typography>
-        <Typography paragraph={true}>{props.parachute}</Typography>
-      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+          // border: "1px solid red",
+        }}
+      >
+        <MyAccordianDetailFields
+          leftHeader={"Description"}
+          rightHeader={"Signed By"}
+          leftDescription={props.description}
+          rightDescription={props.signedBy}
+        />
+        <MyAccordianDetailFields
+          leftHeader={"Altitude"}
+          rightHeader={"Pull Altitude"}
+          leftDescription={props.altitude}
+          rightDescription={props.pullAltitude}
+        />
+        <MyAccordianDetailFields
+          leftHeader={"Wind Speed"}
+          rightHeader={"Parachute"}
+          leftDescription={props.windSpeed}
+          rightDescription={props.parachute}
+        />
 
-      <div>
-        <Typography variant="h6">USPA #</Typography>
-        <Typography paragraph={true}>{props.signedUSPANumber}</Typography>
+        <MyAccordianDetailFields
+          leftHeader={"USPA #"}
+          rightHeader={""}
+          leftDescription={props.signedUSPANumber}
+          rightDescription={""}
+        />
       </div>
-
       <Button variant="contained">Edit</Button>
     </div>
   );
@@ -158,9 +190,7 @@ export default function App() {
       }}
     >
       <h1>~~log book~~</h1>
-      <div 
-      style={{width: "90vw"}}
-      className="log_book">
+      <div style={{ width: "90vw" }} className="log_book">
         <Accordion
           onChange={handleExpandAll}
           expanded={false} // this gives us control of the state of the component
