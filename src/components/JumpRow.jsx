@@ -64,6 +64,14 @@ const KEYS_TO_CLIENT_STR = {
 
 const LOG_SUMMARY_FIELDS = ["#", "Date", "Type", "Aircraft", "Dropzone"];
 
+const pick = (obj, keys) =>
+  Object.keys(obj)
+    .filter((i) => keys.includes(i))
+    .reduce((acc, key) => {
+      acc[key] = obj[key];
+      return acc;
+    }, {});
+
 function HeaderEditableValue({
   header,
   valueKey,
@@ -79,7 +87,7 @@ function HeaderEditableValue({
         id="standard-basic"
         value={value}
         onChange={(event) => {
-          onHandleJumpInfoEdit({ [ valueKey ]: event.target.value }, index);
+          onHandleJumpInfoEdit({ [valueKey]: event.target.value }, index);
         }}
       ></TextField>
     </div>
@@ -101,9 +109,9 @@ function MyAccordianDetails({ rowInfo, index, onHandleJumpInfoEdit }) {
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           flex: 1,
-          // border: "1px solid red", // for debugging
+          border: "1px solid red", // for debugging
         }}
       >
         {rowInfoKeys &&
@@ -142,10 +150,11 @@ export default function JumpRow({ rowInfo, index, onHandleJumpInfoEdit }) {
     return rval;
   });
 
+  const rowDetails = pick(rowInfo, LOG_DETAIL_KEYS);
+
   return (
     <div>
       <Accordion>
-        {/* can we inherit from AccordianSummary instead of padding a component prop to it? */}
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
@@ -155,7 +164,7 @@ export default function JumpRow({ rowInfo, index, onHandleJumpInfoEdit }) {
         </AccordionSummary>
         <AccordionDetails>
           <MyAccordianDetails
-            rowInfo={rowInfo}
+            rowInfo={rowDetails}
             index={index}
             onHandleJumpInfoEdit={onHandleJumpInfoEdit}
           />
