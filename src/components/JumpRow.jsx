@@ -111,7 +111,9 @@ function MyAccordianDetails({ rowInfo, index, onHandleJumpInfoEdit }) {
           display: "flex",
           flexDirection: "row",
           flex: 1,
-          border: "1px solid red", // for debugging
+          // border: "1px solid red", // for debugging
+          flexWrap: "wrap",
+
         }}
       >
         {rowInfoKeys &&
