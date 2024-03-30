@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import CloudIcon from '@mui/icons-material/Cloud';
+import CloudSharpIcon from '@mui/icons-material/CloudSharp';
 
 const pages = ['About', 'View Jumps', 'Statistics'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,14 +36,14 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position='sticky' color='inherit'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
+          <Typography disableGutters
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -56,7 +56,11 @@ function ResponsiveAppBar() {
               textAlign: 'center',
             }}
           >
-            CLOUD <CloudIcon sx={{ mr: 1, ml:1}} /> LOG
+            CLOUD
+            <br />
+            <CloudSharpIcon />
+            <br />
+            LOG
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -112,14 +116,14 @@ function ResponsiveAppBar() {
               textAlign: 'center',
             }}
           >
-            CLOUD <CloudIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, ml:1}} /> LOG
+            CLOUD <CloudSharpIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, ml:1}} /> LOG
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'inherit', display: 'block' }}
               >
                 {page}
               </Button>

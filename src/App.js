@@ -4,7 +4,7 @@ export default function App() {
   return (
     <div>
       <center>
-        <h1>~~log book~~</h1>
+        <h1>Log Book</h1>
         <JumpList />
       </center>
     </div>
