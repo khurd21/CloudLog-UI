@@ -1,12 +1,18 @@
-import JumpList from "./components/JumpList";
+import Layout from './components/Layout'
+import AppRoutes from './components/AppRoutes'
+import { Route, Routes } from 'react-router-dom'
 
-export default function App() {
+const App = () => {
   return (
-    <div>
-      <center>
-        <h1>Log Book</h1>
-        <JumpList />
-      </center>
-    </div>
+    <Layout>
+        <Routes>
+        {AppRoutes.map((route, index) => {
+          const { element, requireAuth, ...rest } = route
+          console.log('Element: ' + JSON.stringify(route))
+          return <Route key={index} {...rest} element={element} />
+        })}
+        </Routes>
+    </Layout>
   )
 }
+export default App

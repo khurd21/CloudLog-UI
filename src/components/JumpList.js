@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, Typography } from '@mui/material'
 import JumpType from './JumpType'
 import JumpDetails from './JumpDetails'
 import AddJump from './AddJump'
@@ -66,36 +66,41 @@ const JumpList = () => {
 
     return (
         <div style={{ width: '75%', margin: '0 auto' }}>
-            <Typography variant='body2' style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold' }}>
-                <span style={{ width: '10%', textAlign: 'left' }}>#</span>
-                <span style={{ width: '25%', textAlign: 'left' }}>Date</span>
-                <span style={{ width: '20%', textAlign: 'left' }}>Type</span>
-                <span style={{ width: '25%', textAlign: 'left' }}>Dropzone</span>
-            </Typography>
-            <div style={{ maxHeight: '50vh', overflowY: 'scroll'}}>
-            {jumps.map((jump, index) => (
-                <Accordion key={index}>
-                    <AccordionSummary style={{ width: '100%' }}>
-                        <Typography variant="body2" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                            <span style={{ width: '10%', textAlign: 'left' }}>{jump.jumpNumber}</span>
-                            <span style={{ width: '25%', textAlign: 'left' }}>{jump.date}</span>
-                            <span style={{ width: '20%', textAlign: 'left' }}>{jump.jumpType}</span>
-                            <span style={{ width: '25%', textAlign: 'left' }}>{jump.dropzone}</span>
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <JumpDetails jump={jump} onChange={handleJumpDetailsChange} />
-                    </AccordionDetails>
-                </Accordion>
-            ))}
-            </div>
-            <Button variant="contained" color="inherit" style={{ marginTop: '20px', marginBottom: '20px' }} onClick={handleNewJump}>
-                { newJump ? 'Cancel' : 'Add Jump' }
-            </Button>
+            <center>
+                <h1>LogBook</h1>
+                <Typography variant='body2' style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold' }}>
+                    <span style={{ width: '10%', textAlign: 'left' }}>#</span>
+                    <span style={{ width: '25%', textAlign: 'left' }}>Date</span>
+                    <span style={{ width: '20%', textAlign: 'left' }}>Type</span>
+                    <span style={{ width: '25%', textAlign: 'left' }}>Dropzone</span>
+                </Typography>
+                <div style={{ maxHeight: '50vh', overflowY: 'scroll' }}>
+                    {jumps.map((jump, index) => (
+                        <Accordion key={index}>
+                            <AccordionSummary style={{ width: '100%' }}>
+                                <Typography variant="body2" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                    <span style={{ width: '10%', textAlign: 'left' }}>{jump.jumpNumber}</span>
+                                    <span style={{ width: '25%', textAlign: 'left' }}>{jump.date}</span>
+                                    <span style={{ width: '20%', textAlign: 'left' }}>{jump.jumpType}</span>
+                                    <span style={{ width: '25%', textAlign: 'left' }}>{jump.dropzone}</span>
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <JumpDetails jump={jump} onChange={handleJumpDetailsChange} />
+                            </AccordionDetails>
+                        </Accordion>
+                    ))}
+                </div>
+                <br></br>
+                <Divider sx={{ fontWeight: 'bold' }} />
+                <Button variant="contained" color="inherit" style={{ marginTop: '20px', marginBottom: '20px' }} onClick={handleNewJump}>
+                    {newJump ? 'Cancel' : 'Add Jump'}
+                </Button>
 
-            {newJump && (
-                <AddJump jump={newJump} onChange={handleNewJumpChange} onClick={handleSaveJump} />
-            )}
+                {newJump && (
+                    <AddJump jump={newJump} onChange={handleNewJumpChange} onClick={handleSaveJump} />
+                )}
+            </center>
         </div>
     )
 }
