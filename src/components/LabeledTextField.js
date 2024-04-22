@@ -39,7 +39,7 @@ const LabeledTextField = ({ label, value, multiline, fullWidth, disabled, onChan
     return (
         <div style={{ marginBottom: '50px', marginRight: '50px' }}>
             <Typography style={{ fontWeight: 'bold', marginRight: '8px' }}>{label}:</Typography>
-            <TextField label={label} value={value} multiline={multiline} fullWidth={fullWidth} disabled={disabled} onChange={handleChange} size='small' />
+            <TextField label={label} value={value || ''} multiline={multiline} fullWidth={fullWidth} disabled={disabled} onChange={handleChange} size='small' />
         </div> 
     )
 }

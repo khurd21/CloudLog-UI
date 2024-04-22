@@ -1,8 +1,9 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, Typography } from '@mui/material'
 import JumpType from './JumpType'
 import JumpDetails from './JumpDetails'
 import AddJump from './AddJump'
+import { logJump } from '../logbook-api'
 
 const jumpList = [
     { jumpNumber: 1, date: '2022-01-01', jumpType: JumpType.Belly, dropzone: 'Skydive City', aircraft: 'Twin Otter' },
@@ -13,48 +14,61 @@ const jumpList = [
     // Add more jumps as needed
 ]
 
+const defaultJumpDetails = {
+    jumpNumber: 0,
+    date: '',
+    jumpType: JumpType.NONE,
+    aircraft: '',
+    altitude: 0,
+    pullAltitude: 0,
+    windSpeedKnots: 0,
+    parachute: '',
+    parachuteSize: 0,
+    dropzone: '',
+    description: '',
+    signedBy: '',
+    signersLicenseNumber: ''
+}
+
 const sort = (jumps) => {
     return jumps.sort((a, b) => b.jumpNumber - a.jumpNumber)
 }
 
 const JumpList = () => {
     const [jumps, setJumps] = useState(sort(jumpList)) // State to keep track of jumps
-    const [newJump, setNewJump] = useState(null) // State for the newly added jump
+    const [newJump, setNewJump] = useState({ ...defaultJumpDetails })
+    const [isAddingNewJump, setIsAddingNewJump] = useState(false)
 
     const handleNewJump = () => {
         // Create a new jump with some default values
-        if (newJump) {
-            setNewJump(null)
+        if (isAddingNewJump) {
+            setNewJump({ ...defaultJumpDetails })
+            setIsAddingNewJump(false)
             return
         }
-        const defaultJump = {
-            jumpNumber: jumps.length + 1,
-            date: '',
-            jumpType: '',
-            aircraft: '',
-            dropzone: '',
-            description: '',
-            signedBy: '',
-            uspaNumber: '',
-        }
+        var defaultJump = { ...defaultJumpDetails }
+        defaultJump.jumpNumber = jumps.length + 1
         setNewJump(defaultJump)
+        setIsAddingNewJump(true)
     }
 
     const handleSaveJump = () => {
-        // Add the newly added jump to the jumps list
-        if (newJump) {
+        if (isAddingNewJump) {
+            // logJump({ jump: newJump })
+            // TODO: It looks like the index 0 is still the original value..
+            console.log('handling save jump: ' + JSON.stringify(newJump))
             setJumps(prevJumps => {
                 const updatedJumps = [...prevJumps, newJump]
+                console.log(`New JumpList end: ${JSON.stringify(updatedJumps[updatedJumps.length - 1])}`)
                 return sort(updatedJumps)
             })
+            console.log(`Set jumps end: ${JSON.stringify(jumps[0])}`)
         }
-        // Clear the new jump state
-        setNewJump(null)
+        setIsAddingNewJump(false)
     }
 
     const handleJumpDetailsChange = (jump) => {
-        // Update the jump details
-        setJumps(prevJumps => prevJumps.map(j => j.jumpNumber === jump.jumpNumber ? jump : j))
+        //setJumps(prevJumps => prevJumps.map(j => j.jumpNumber === jump.jumpNumber ? jump : j))
     }
 
     const handleNewJumpChange = (field, value) => {
@@ -63,6 +77,10 @@ const JumpList = () => {
             [field]: value
         }))
     }
+
+    useEffect(() => {
+        console.log(`Set jumps end: ${JSON.stringify(jumps[0])}`);
+    }, [jumps]);
 
     return (
         <div style={{ width: '75%', margin: '0 auto' }}>
@@ -94,10 +112,10 @@ const JumpList = () => {
                 <br></br>
                 <Divider sx={{ fontWeight: 'bold' }} />
                 <Button variant="contained" color="inherit" style={{ marginTop: '20px', marginBottom: '20px' }} onClick={handleNewJump}>
-                    {newJump ? 'Cancel' : 'Add Jump'}
+                    {isAddingNewJump ? 'Cancel' : 'Add Jump'}
                 </Button>
 
-                {newJump && (
+                {isAddingNewJump && (
                     <AddJump jump={newJump} onChange={handleNewJumpChange} onClick={handleSaveJump} />
                 )}
             </center>

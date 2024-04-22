@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AccordionDetails, Box, Button, Grid } from '@mui/material'
 import JumpType from './JumpType'
 import { LabeledDropdown, LabeledTextField } from './LabeledTextField'
@@ -6,6 +6,10 @@ import { LabeledDropdown, LabeledTextField } from './LabeledTextField'
 const JumpDetails = ({ jump, onChange }) => {
     const [jumpState, setJumpState] = useState(jump)
     const [editMode, setEditMode] = useState(false)
+
+    useEffect(() => {
+        setJumpState(jump);
+    }, [jump]);
 
     const handleEditClick = () => {
         setEditMode(true)
