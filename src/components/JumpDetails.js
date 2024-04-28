@@ -31,26 +31,26 @@ const JumpDetails = ({ jump, onChange }) => {
 
     return (
         <AccordionDetails>
-            <Grid container spacing={2} justifyContent="center">
-                <Grid item>
+            <Grid container spacing={4} justifyContent="center">
+                <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 }>
                     <LabeledTextField label="Date" value={jumpState.date} disabled={!editMode} onChange={ (value) => handleChange('date', value) } />
                 </Grid>
-                <Grid item>
+                <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 }>
                     <LabeledDropdown label="Type" value={jumpState.jumpType} options={Object.values(JumpType)} fullWidth disabled={!editMode} onChange={ (value) => handleChange('jumpType', value) } />
                 </Grid>
-                <Grid item>
+                <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 }>
                     <LabeledTextField label="Dropzone" value={jumpState.dropzone} disabled={!editMode} onChange={ (value) => handleChange('dropzone', value) } />
                 </Grid>
-                <Grid item>
+                <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 }>
                     <LabeledTextField label="Aircraft" value={jumpState.aircraft} disabled={!editMode} onChange={ (value) => handleChange('aircraft', value) } />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 }>
                     <LabeledTextField label="Description" value={jumpState.description} disabled={!editMode} fullWidth multiline onChange={ (value) => handleChange('description', value) } />
                 </Grid>
-                <Grid item>
+                <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 }>
                     <LabeledTextField label="Signed by" value={jumpState.signedBy} disabled={!editMode} onChange={ (value) => handleChange('signedBy', value) } />
                 </Grid>
-                <Grid item>
+                <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 }>
                     <LabeledTextField label="USPA #" value={jumpState.uspaNumber} disabled={!editMode} onChange={ (value) => handleChange('uspaNumber', value) } />
                 </Grid>
             </Grid>

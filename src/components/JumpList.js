@@ -3,7 +3,8 @@ import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, Typogra
 import JumpType from './JumpType'
 import JumpDetails from './JumpDetails'
 import AddJump from './AddJump'
-import { logJump } from '../logbook-api'
+import isAuth from '../auth'
+import { Navigate } from 'react-router-dom'
 
 const jumpList = [
     { jumpNumber: 1, date: '2022-01-01', jumpType: JumpType.Belly, dropzone: 'Skydive City', aircraft: 'Twin Otter' },
@@ -34,10 +35,17 @@ const sort = (jumps) => {
     return jumps.sort((a, b) => b.jumpNumber - a.jumpNumber)
 }
 
-const JumpList = () => {
+const JumpList = ({ element, requireAuth, ...rest }) => {
+
+    const { isAuthenticated } = isAuth()
     const [jumps, setJumps] = useState(sort(jumpList)) // State to keep track of jumps
     const [newJump, setNewJump] = useState({ ...defaultJumpDetails })
     const [isAddingNewJump, setIsAddingNewJump] = useState(false)
+
+    useEffect(() => {}, [jumps]);
+    if (!isAuthenticated && requireAuth) {
+        return <Navigate to='/login' />
+    }
 
     const handleNewJump = () => {
         // Create a new jump with some default values
@@ -77,10 +85,6 @@ const JumpList = () => {
             [field]: value
         }))
     }
-
-    useEffect(() => {
-        console.log(`Set jumps end: ${JSON.stringify(jumps[0])}`);
-    }, [jumps]);
 
     return (
         <div style={{ width: '75%', margin: '0 auto' }}>

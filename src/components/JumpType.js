@@ -7,7 +7,7 @@ const JumpType = {
     AFF: 'AFF',
     CRW: 'CRW',
     XRW: 'XRW',
-    NONE: ''
+    NONE: 'N/A'
 }
 
 const LinkJumpType = {

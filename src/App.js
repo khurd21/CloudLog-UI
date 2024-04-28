@@ -5,14 +5,15 @@ import { Route, Routes } from 'react-router-dom'
 const App = () => {
   return (
     <Layout>
-        <Routes>
+      <Routes>
         {AppRoutes.map((route, index) => {
-          const { element, requireAuth, ...rest } = route
-          console.log('Element: ' + JSON.stringify(route))
-          return <Route key={index} {...rest} element={element} />
+          const { element: Element, requireAuth, ...rest } = route
+          console.log(`Require auth? ${requireAuth}`)
+          return <Route key={index} requireAuth={requireAuth} {...rest} element={<Element requireAuth={requireAuth} />} />
         })}
-        </Routes>
+      </Routes>
     </Layout>
   )
 }
+
 export default App
