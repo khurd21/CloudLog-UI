@@ -1,19 +1,11 @@
-import { React, useState, useEffect } from 'react'
+import { React, useCallback, useState, useEffect } from 'react'
 import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, Typography } from '@mui/material'
-import JumpType from './JumpType'
+import { JumpType, JumpTypeToEnum } from './JumpType'
 import JumpDetails from './JumpDetails'
 import AddJump from './AddJump'
 import isAuth from '../auth'
 import { Navigate } from 'react-router-dom'
-
-const jumpList = [
-    { jumpNumber: 1, date: '2022-01-01', jumpType: JumpType.Belly, dropzone: 'Skydive City', aircraft: 'Twin Otter' },
-    { jumpNumber: 2, date: '2022-01-05', jumpType: JumpType.Freefly, dropzone: 'Skydive Perris', aircraft: 'Cessna 182' },
-    { jumpNumber: 3, date: '2022-01-10', jumpType: JumpType.HighPull, dropzone: 'Empuriabrava', aircraft: 'Beechcraft King Air' },
-    { jumpNumber: 4, date: '2022-01-15', jumpType: JumpType.CRW, dropzone: 'Zephyrhills Skydive City', aircraft: 'Twin Otter' },
-    { jumpNumber: 5, date: '2022-01-20', jumpType: JumpType.AFF, dropzone: 'Skydive Dubai', aircraft: 'Pilatus Porter' },
-    // Add more jumps as needed
-]
+import * as api from '../logbook-api'
 
 const defaultJumpDetails = {
     jumpNumber: 0,
@@ -24,7 +16,8 @@ const defaultJumpDetails = {
     pullAltitude: 0,
     windSpeedKnots: 0,
     parachute: '',
-    parachuteSize: 0,
+    // TODO: change back to zero when properly have field
+    parachuteSize: 99,
     dropzone: '',
     description: '',
     signedBy: '',
@@ -38,11 +31,22 @@ const sort = (jumps) => {
 const JumpList = ({ element, requireAuth, ...rest }) => {
 
     const { isAuthenticated } = isAuth()
-    const [jumps, setJumps] = useState(sort(jumpList)) // State to keep track of jumps
+    const [jumps, setJumps] = useState([]) // State to keep track of jumps
     const [newJump, setNewJump] = useState({ ...defaultJumpDetails })
     const [isAddingNewJump, setIsAddingNewJump] = useState(false)
 
-    useEffect(() => {}, [jumps]);
+    const fetchJumps = useCallback(async () => {
+        if (isAuthenticated) {
+            api.getJump(1, 10000)
+                .then(response => setJumps(sort(response.data.jumps)))
+                .catch(error => console.error('Error fetching jumps: ', error))
+        }
+    }, [isAuthenticated])
+
+    useEffect(() => {
+        fetchJumps()
+    }, [isAuthenticated, fetchJumps]);
+
     if (!isAuthenticated && requireAuth) {
         return <Navigate to='/login' />
     }
@@ -60,23 +64,18 @@ const JumpList = ({ element, requireAuth, ...rest }) => {
         setIsAddingNewJump(true)
     }
 
-    const handleSaveJump = () => {
+    const handleSaveJump = async () => {
         if (isAddingNewJump) {
-            // logJump({ jump: newJump })
-            // TODO: It looks like the index 0 is still the original value..
+            newJump.jumpType = JumpTypeToEnum(newJump.jumpType)
             console.log('handling save jump: ' + JSON.stringify(newJump))
-            setJumps(prevJumps => {
-                const updatedJumps = [...prevJumps, newJump]
-                console.log(`New JumpList end: ${JSON.stringify(updatedJumps[updatedJumps.length - 1])}`)
-                return sort(updatedJumps)
-            })
-            console.log(`Set jumps end: ${JSON.stringify(jumps[0])}`)
+            await api.logJump(newJump)
+            await fetchJumps()
         }
         setIsAddingNewJump(false)
     }
 
     const handleJumpDetailsChange = (jump) => {
-        //setJumps(prevJumps => prevJumps.map(j => j.jumpNumber === jump.jumpNumber ? jump : j))
+        setJumps(prevJumps => prevJumps.map(j => j.jumpNumber === jump.jumpNumber ? jump : j))
     }
 
     const handleNewJumpChange = (field, value) => {

@@ -1,14 +1,11 @@
 import axios from 'axios'
 
-const API = axios.create({ baseUrl: "https://localhost:1234" })
+const API = axios.create({ baseURL: "https://localhost:7379" })
 
 // TODO: Figure out how to store to local storage after verifying with Google. Also, what is the id and type?
 API.interceptors.request.use((req) => {
-    const data = JSON.parse(localStorage.getItem('profile'))
-    if (data) {
-        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
-        req.headers.id = data?.result?.id || data?.id
-        req.headers.type = data.type
+    if (localStorage.getItem('tokenId')) {
+        req.headers.Authorization = `Bearer ${localStorage.getItem('tokenId')}`
     }
     return req;
 })
@@ -18,7 +15,7 @@ export const getJump = async (from, to) => {
 }
 
 export const logJump = async (jump) => {
-    return API.post(`/api/v1/Logbook`, jump)
+    return API.post(`/api/v1/Logbook`, { 'jump': jump })
 }
 
 export const editJump = async (jump) => {

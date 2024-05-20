@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { AccordionDetails, Box, Button, Grid } from '@mui/material'
-import JumpType from './JumpType'
+import { JumpType } from './JumpType'
 import { LabeledDropdown, LabeledTextField } from './LabeledTextField'
 
 const JumpDetails = ({ jump, onChange }) => {
@@ -51,7 +51,7 @@ const JumpDetails = ({ jump, onChange }) => {
                     <LabeledTextField label="Signed by" value={jumpState.signedBy} disabled={!editMode} onChange={ (value) => handleChange('signedBy', value) } />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 }>
-                    <LabeledTextField label="USPA #" value={jumpState.uspaNumber} disabled={!editMode} onChange={ (value) => handleChange('uspaNumber', value) } />
+                    <LabeledTextField label="USPA #" value={jumpState.signersLicenseNumber} disabled={!editMode} onChange={ (value) => handleChange('signersLicenseNumber', value) } />
                 </Grid>
             </Grid>
             <Box mt={2} textAlign="center" width="100%">

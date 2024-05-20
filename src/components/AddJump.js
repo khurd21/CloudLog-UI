@@ -1,5 +1,5 @@
 import { AccordionDetails, Box, Button, Grid } from '@mui/material'
-import JumpType from './JumpType'
+import { JumpType } from './JumpType'
 import { LabeledDropdown, LabeledTextField } from './LabeledTextField'
 
 const AddJump = ({ jump, onChange, onClick }) => {
@@ -25,7 +25,7 @@ const AddJump = ({ jump, onChange, onClick }) => {
                     <LabeledTextField label="Signed by" value={jump.signedBy} onChange={(value) => onChange('signedBy', value)} />
                 </Grid>
                 <Grid item>
-                    <LabeledTextField label="USPA #" value={jump.uspaNumber} onChange={(value) => onChange('uspaNumber', value)} />
+                    <LabeledTextField label="USPA #" value={jump.signersLicenseNumber} onChange={(value) => onChange('signersLicenseNumber', value)} />
                 </Grid>
             </Grid>
             <Box mt={2} textAlign="center" width="100%">

@@ -1,15 +1,25 @@
-import { Title } from '@mui/icons-material';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
-import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import isAuth from '../auth'
 
 const GoogleAuthPage = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const { isAuthenticated } = isAuth()
+    const navigate = useNavigate()
+    if (isAuthenticated) {
+        return navigate('/')
+    }
 
     const onSuccess = (response) => {
-        const { tokenId } = response
+        console.log(`Response: ${JSON.stringify(response)}`)
+        const { credential } = response
         // Store tokenId in local storage or state
-        localStorage.setItem('tokenId', tokenId)
-        setIsAuthenticated(true)
+        console.log(`Success: ${credential}`)
+        const expirationTime = new Date();
+        expirationTime.setHours(expirationTime.getHours() + 1)
+        localStorage.setItem('tokenId', credential)
+        localStorage.setItem('tokenExpiration', expirationTime.toString())
+        navigate('/')
     };
 
     const onFailure = (error) => {
@@ -23,7 +33,7 @@ const GoogleAuthPage = () => {
             <h1>Sign In</h1>
             <div>
                 {!isAuthenticated &&
-                    <GoogleOAuthProvider clientId=''>
+                    <GoogleOAuthProvider clientId='379391495680-d39d06qan1mtla0fihgn981dtiqrj826.apps.googleusercontent.com'>
                         <GoogleLogin
                             onSuccess={onSuccess}
                             onFailure={onFailure}
