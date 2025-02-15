@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  font-family: Arial, sans-serif;
+  transition: letter-spacing 0.5s ease;
+}
+
+.logo-container:hover {
+  opacity: 75%;
+  letter-spacing: -2px;
+  transition: letter-spacing 0.5s ease;
+}
+
+.logo-text {
+  font-size: 50px;
+  font-weight: bold;
+  margin-left: 10px;
+}
