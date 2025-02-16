@@ -15,6 +15,10 @@
   padding: 10px 15px;
 }
 
+.menu-item:hover {
+  color: gray;
+}
+
 .menu-item.active {
   background-color: #333;
   border-radius: 8px;

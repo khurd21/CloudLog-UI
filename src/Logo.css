@@ -10,7 +10,9 @@
   align-items: center;
   user-select: none;
   font-family: Arial, sans-serif;
+  letter-spacing: 0;
   transition: letter-spacing 0.5s ease;
+  animation: drop-down 1.8s ease;
 }
 
 .logo-container:hover {
@@ -23,4 +25,18 @@
   font-size: 50px;
   font-weight: bold;
   margin-left: 10px;
+}
+
+@keyframes drop-down {
+  0% {
+    letter-spacing: 10px;
+  }
+  70% {
+    transform: translateY(10px);
+    letter-spacing: -3px;
+  }
+  100% {
+    transform: translateY(0);
+    letter-spacing: 0;
+  }
 }
