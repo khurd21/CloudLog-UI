@@ -6,7 +6,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId='379391495680-d39d06qan1mtla0fihgn981dtiqrj826.apps.googleusercontent.com'>
       <AuthProvider>
         <div className="app-container">
           <header>
@@ -18,7 +17,6 @@ function App() {
           </footer>
         </div>
       </AuthProvider>
-    </GoogleOAuthProvider>
   );
 }
 

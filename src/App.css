@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -17,15 +18,16 @@ footer {
   font-size: 14px;
   position: relative;
   width: 100%;
-}
 
-footer p {
-  margin: 0;
-}
+  p {
+    margin: 0;
 
-footer p:hover {
-  opacity: 0.8;
-  cursor: default;
+    &:hover {
+      opacity: 0.8;
+      cursor: default;
+
+    }
+  }
 }
 
 .app-container {

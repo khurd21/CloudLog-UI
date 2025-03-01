@@ -13,16 +13,16 @@
   text-decoration: none;
   color: #333;
   padding: 10px 15px;
-}
 
-.menu-item:hover {
-  color: gray;
-}
+  &:hover {
+    color: gray;
+  }
 
-.menu-item.active {
-  background-color: #333;
-  border-radius: 8px;
-  margin: 0;
-  color: white;
-  transition: color 1.0s ease, background-color 1.0s ease;
+  &.active {
+    background-color: #333;
+    border-radius: 8px;
+    margin: 0;
+    color: white;
+    transition: color 1.0s ease, background-color 1.0s ease;
+  }
 }

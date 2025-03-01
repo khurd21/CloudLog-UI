@@ -1,0 +1,24 @@
+.card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    transition: transform 0.5s ease;
+
+    img {
+        width: 75px;
+        height: 75px;
+        border-radius: '50%';
+        padding: 20px;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+        transition: transform 0.5s ease;
+    }
+
+}
